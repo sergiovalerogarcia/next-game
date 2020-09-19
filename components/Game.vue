@@ -1,18 +1,14 @@
 <template>
   <section>
     <div id="phaser-game" class="phaser-game"></div>
-    <div class="overlay">
-      <label>
-        Color:
-        <input @input="setColor($event.target)" type="color" value="#0000ff" />
-      </label>
-    </div>
   </section>
 </template>
 
 <script>
 import Phaser from 'phaser'
-import scene from '../lib/Scene'
+import Preload from '../lib/scenes/Preload'
+import Home from '../lib/scenes/Home'
+import PlayScene from '../lib/scenes/PlayScene'
 import gameConfig from '../lib/gameConfig'
 
 export default {
@@ -22,10 +18,14 @@ export default {
     }
   },
   mounted() {
+    const home = new Home()
+    const playScene = new PlayScene()
+    const preload = new Preload()
+    const scene = [preload, home, playScene]
     this.initializeGame({ scene, gameConfig })
   },
   methods: {
-    initializeGame({ parent, scene, gameConfig }) {
+    initializeGame({ scene, gameConfig }) {
       this.game = new Phaser.Game({
         ...gameConfig,
         parent,
@@ -33,7 +33,7 @@ export default {
       })
     },
     setColor({ value }) {
-      this.game.scene.scenes[0].cameras.main.setBackgroundColor(value)
+      this.game.scene.scenes[1].cameras.main.setBackgroundColor(value)
     },
     destroyGame() {
       this.game.destroy()
@@ -42,13 +42,7 @@ export default {
 }
 </script>
 <style scoped>
-.overlay {
-  display: flex;
-  flex-direction: row;
-  padding: 16px;
-  position: absolute;
-}
 .phaser-game {
-  position: absolute;
+  max-height: 600px;
 }
 </style>

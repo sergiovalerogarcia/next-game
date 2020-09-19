@@ -1,5 +1,8 @@
 <template>
-  <Game />
+  <div>
+    <a href="home">home</a>
+    <Game />
+  </div>
 </template>
 
 <script>
