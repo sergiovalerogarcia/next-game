@@ -1,6 +1,5 @@
 <template>
   <div>
-    <a href="home">home</a>
     <Game />
   </div>
 </template>
